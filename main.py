@@ -4,7 +4,7 @@ import pandas as pd
 from dateutil.parser import parse
 from datetime import datetime
 import re
-
+import numpy as np
 pd.set_option('max_columns', None)
 
 # Get dataset
@@ -63,22 +63,49 @@ def createYearColumn(df_p):
     print(df5.shape)
     print(df5.head(50))
     """
-    df_p['year'] = df_p['title'].apply(lambda x: checkYearColumnForDate(x))
-    return df_p
+    df = df_p.copy()
+    df['year'] = df['title'].apply(lambda x: checkYearColumnForDate(x))
+    return df
         
 def removeMissingYearFromTitleRows(df_p):
     df = df_p[df_p['year'].notna()]
     return df
 
+def getListOfCountries(df_p):
+    """
+    The following was used for testing.
+    print(countries)
+    """
+    return df_p['country'].unique()
+
+def getAveragePointsPerCountry(listOfCountries_p, df_p):
+    """
+    This function is going to return a dict of [country,
+    average points] pairs.
+    I printed the dict to test this.
+    """
+    dict = {}
+    for i in listOfCountries_p:
+        countrydf = df_p.query("country == @i")
+        pointsForThisCountry = countrydf['points'].values
+        average = np.average(pointsForThisCountry)
+        dict[i] = average
+    return dict
+        
+    
+
 # Defining main function
 def main():
     print("test")
     df = getDataset()
-    df = removeCols(df)
-    df2 = removeMissingCountryRows(df)
+    df1 = removeCols(df)
+    df2 = removeMissingCountryRows(df1)
     df3 = removeMissingPriceRows(df2)
     df4 = createYearColumn(df3)
     df5 = removeMissingYearFromTitleRows(df4)
+    countries = getListOfCountries(df5) 
+    averagePointsDict = getAveragePointsPerCountry(countries, df5)
+
     
 # Count the Null columns
 """
