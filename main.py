@@ -1,6 +1,11 @@
 from hashlib import new
 from turtle import update
 import pandas as pd
+from dateutil.parser import parse
+from datetime import datetime
+import re
+
+pd.set_option('max_columns', None)
 
 # Get dataset
 def getDataset():
@@ -34,7 +39,36 @@ def removeMissingPriceRows(df_p):
     """
     df = df_p[df_p['price'].notna()]
     return df
+
+def checkYearColumnForDate(x):
+    """
+    This function is used to catch the value error
+    returned by the parse function when searching the
+    title column for a year.
+    """
+    try:
+        return parse(x, fuzzy=True).year
+    except ValueError as e:
+        return
     
+def createYearColumn(df_p):
+    """
+    The following was used for testing. I used
+    the head print to compare the year in the title
+    to the year in the year column.
+      
+    df4 = createYearColumn(df)
+    print(df4.shape)
+    df5 = removeMissingYearFromTitleRows(df4)
+    print(df5.shape)
+    print(df5.head(50))
+    """
+    df_p['year'] = df_p['title'].apply(lambda x: checkYearColumnForDate(x))
+    return df_p
+        
+def removeMissingYearFromTitleRows(df_p):
+    df = df_p[df_p['year'].notna()]
+    return df
 
 # Defining main function
 def main():
@@ -43,7 +77,8 @@ def main():
     df = removeCols(df)
     df2 = removeMissingCountryRows(df)
     df3 = removeMissingPriceRows(df2)
-   
+    df4 = createYearColumn(df3)
+    df5 = removeMissingYearFromTitleRows(df4)
     
 # Count the Null columns
 """
