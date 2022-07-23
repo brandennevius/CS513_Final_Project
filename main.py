@@ -4,12 +4,39 @@ import pandas as pd
 def getDataset():
     df = pd.read_csv('Winery-Kaggle/winemag-data-130k-v2.csv')
     return df
-    # print(df.to_string()) 
+
+def removeMissingCountryRows(df_p):
+    df = df_p[df_p['country'].notna()]
+    return df
+    
 
 # Defining main function
 def main():
     print("test")
-    # getDataset()
+    df = getDataset()
+    print(df.head(10))
+    df2 = removeMissingCountryRows(df)
+    
+    """
+    This prints all rows where the country is nan.
+    I can use this to etst if removing the rows works.
+    The following was used to test.
+    
+    df1 = df[df['country'].isna()]
+    print(df1)
+    df2 = removeMissingCountryRows(df)
+    #print(df2[df2['country'].isna()])
+    print(df.shape)
+    print(df2.shape)
+    """
+    
+    removeCol('region_1')
+    removeCol('region_2')
+    removeCol('taster_name')
+    removeCol('taster_twitter_handle')
+    removeCol('description')
+
+
 
 
 # Count the Null columns
@@ -20,8 +47,6 @@ def getNullColumns():
     df = getDataset()
     null_columns=df.columns[df.isnull().any()]
     print(df[null_columns].isnull().sum())
-
-getNullColumns()
 
 # Remove the region 1 and region 2
 """
@@ -37,9 +62,4 @@ def removeCol(col_name):
 # __name__
 if __name__=="__main__":
     main()
-    removeCol('region_1')
-    removeCol('region_2')
-    removeCol('taster_name')
-    removeCol('taster_twitter_handle')
-    removeCol('description')
     
