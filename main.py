@@ -8,24 +8,8 @@ def getDataset():
     return df
 
 def removeMissingCountryRows(df_p):
-    df = df_p[df_p['country'].notna()]
-    return df
-    
-
-# Defining main function
-def main():
-    print("test")
-    df = getDataset()
-    df = removeCols(df)
-    # print(df.head())
-    # print(getNullColumns())
-    print(df.head(10))
-    df2 = removeMissingCountryRows(df)
-    
     """
-    This prints all rows where the country is nan.
-    I can use this to etst if removing the rows works.
-    The following was used to test.
+    I can use this to test if removing the rows works.
     
     df1 = df[df['country'].isna()]
     print(df1)
@@ -34,6 +18,32 @@ def main():
     print(df.shape)
     print(df2.shape)
     """
+    df = df_p[df_p['country'].notna()]
+    return df
+
+def removeMissingPriceRows(df_p):
+    """
+    I can use this to test if removing the rows works.
+    
+    df1 = df[df['price'].isna()]
+    print(df1)
+    df2 = removeMissingCountryRows(df)
+    #print(df2[df2['price'].isna()])
+    print(df.shape)
+    print(df2.shape)
+    """
+    df = df_p[df_p['price'].notna()]
+    return df
+    
+
+# Defining main function
+def main():
+    print("test")
+    df = getDataset()
+    df = removeCols(df)
+    df2 = removeMissingCountryRows(df)
+    df3 = removeMissingPriceRows(df2)
+   
     
 # Count the Null columns
 """
