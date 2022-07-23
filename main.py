@@ -19,8 +19,8 @@ def main():
     df = removeCols(df)
     # print(df.head())
     # print(getNullColumns())
-    print(df.head(10))
     df2 = removeMissingCountryRows(df)
+    print(cleanVarietyCol(df2))
     
     """
     This prints all rows where the country is nan.
@@ -58,8 +58,15 @@ def removeCols(df):
     new_df = new_df.drop('taster_twitter_handle', axis=1)
     return new_df
     
-
-  
+# Function to clean the variety 
+# go through and see the varieties with 
+def cleanVarietyCol(df_v):
+    df = df_v[df_v['variety'].notna()]
+    # get percentage of values in the variety column
+    df['variety'] =df['variety'].str.replace('-',' ',regex=True)
+    print(df['variety'])
+    
+    
 # Using the special variable 
 # __name__
 if __name__=="__main__":
