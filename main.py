@@ -53,6 +53,7 @@ def main():
     df = removeCols(df)
     df2 = removeMissingCountryRows(df)
     df3 = removeMissingPriceRows(df2)
+    df4 = cleanVarietyCol(df3)
    
     
 # Count the Null columns
@@ -79,12 +80,24 @@ def removeCols(df):
     return new_df
     
 # Function to clean the variety 
-# go through and see the varieties with 
+
 def cleanVarietyCol(df_v):
-    df = df_v[df_v['variety'].notna()]
-    # get percentage of values in the variety column
-    df['variety'] =df['variety'].str.replace('-',' ',regex=True)
-    print(df['variety'])
+    """
+    test if the variety row is cleaned up
+    print(len(df_v['variety']))
+    df1 = df_v[df_v['variety'].notna()]
+    print(len(df1['variety']))
+
+    df2 = df1.loc[df1.variety.str.contains('^[a-zA-Z][a-zA-Z, ]*$')]
+    print(len(df2['variety']))
+    """
+    #remove na values
+    df1 = df_v[df_v['variety'].notna()]
+    # remove any entry that contains special characters
+    df2 = df1.loc[df1.variety.str.contains('^[a-zA-Z][a-zA-Z, ]*$')]
+    return df2
+    
+    
     
     
 # Using the special variable 
