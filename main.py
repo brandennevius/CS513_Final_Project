@@ -3,14 +3,18 @@ import pandas as pd
 # Get dataset
 def getDataset():
     df = pd.read_csv('Winery-Kaggle/winemag-data-130k-v2.csv')
-    print(df.to_string()) 
+    print(df.head(10))
+    return df
+
+def removeMissingCountryRows(df_p):
+    
+    return df
+    
 
 # Defining main function
 def main():
     print("test")
-    test
-    getDataset()
-  
+    df = getDataset()  
   
 # Using the special variable 
 # __name__
