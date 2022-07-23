@@ -1,3 +1,5 @@
+from hashlib import new
+from turtle import update
 import pandas as pd
 
 # Get dataset
@@ -14,6 +16,9 @@ def removeMissingCountryRows(df_p):
 def main():
     print("test")
     df = getDataset()
+    df = removeCols(df)
+    # print(df.head())
+    # print(getNullColumns())
     print(df.head(10))
     df2 = removeMissingCountryRows(df)
     
@@ -30,15 +35,6 @@ def main():
     print(df2.shape)
     """
     
-    removeCol('region_1')
-    removeCol('region_2')
-    removeCol('taster_name')
-    removeCol('taster_twitter_handle')
-    removeCol('description')
-
-
-
-
 # Count the Null columns
 """
 Prints the count of the null values for each column 
@@ -54,12 +50,19 @@ Region 1 contains 16% null data
 Region 2 contains 61% data 
 param col_name : String of the column name we want to delete
 """
-def removeCol(col_name):
-    df = df.drop(col_name, axis=1)
+def removeCols(df):
+    new_df = df.drop('region_1', axis=1)
+    new_df = new_df.drop('region_2', axis=1)
+    new_df = new_df.drop('description', axis=1)
+    new_df = new_df.drop('taster_name', axis=1)
+    new_df = new_df.drop('taster_twitter_handle', axis=1)
+    return new_df
+    
 
   
 # Using the special variable 
 # __name__
 if __name__=="__main__":
     main()
+    
     
