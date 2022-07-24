@@ -1,3 +1,4 @@
+from fileinput import filename
 from hashlib import new
 from turtle import update
 import pandas as pd
@@ -6,10 +7,12 @@ from datetime import datetime, tzinfo
 import re
 import numpy as np
 import json
-
+import matplotlib.pyplot as plt
 from textblob import TextBlob
-from itertools import chain
+from itertools import chain, count
 from collections import Counter
+from collections import defaultdict
+import csv
 pd.set_option('max_columns', None)
 
 
@@ -33,7 +36,6 @@ def removeMissingCountryRows(df_p):
     return df
 
 
-    
 def removeMissingPriceRows(df_p):
     """
     I can use this to test if removing the rows works.
@@ -177,13 +179,42 @@ def main():
     mostCommonYearDict = getMostCommonYearPerCountry(countries, df6)
     averagePriceDict = getAveragePricePerCountry(countries, df6)
     adjectiveDict = getAdjectivesFromDescription(countries, df6)
-    
+    makeProfile(mostCommonVarietyDict,mostCommonYearDict,averagePriceDict,averagePointsDict,adjectiveDict, countries)
     """
     We convert the resulting dataframe back into a csv
     file and check the cleaned csv file for null values.
     """
     createCleanedCsvFile(df6)
     getNullColumns(df6)
+
+
+def BuildDataset(dictionary, name):
+    filename = "%s.csv" % name
+    fields = ['Country', 'Variety', 'Year', 'Price', 'Points', 'Adjective']
+    with open(filename, 'w') as f:  # You will need 'wb' mode in Python 2.x
+        w = csv.DictWriter(f, fields)
+        w.writeheader()
+        for k in dictionary:
+            w.writerow({field: dictionary[k].get(field) or k for field in fields})
+    
+
+def makeProfile(d1,d2,d3,d4,d5,countries):
+    dd = {key: None for key in countries}
+    
+    for c in countries:
+        d_temp = dict.fromkeys(["Variety","Year","Price","Points","Adjective"])
+        d_temp['Variety'] = d1[c]
+        d_temp['Year'] = d2[c]
+        d_temp['Price'] = d3[c]
+        d_temp['Points'] = d4[c]
+        d_temp['Adjective'] = d5[c]
+        dd[c] = d_temp
+        
+    print(dd)        
+    BuildDataset(dd,'Profiles')
+    return dd
+    
+    
 
 """
 getNullColumns prints the number of null values per column
@@ -232,6 +263,7 @@ def cleanVarietyCol(df_v):
 def mostPopularVarietyByCountry(df_vp):
     new_df = df_vp.groupby(['country'])['variety'].apply(lambda x: x.value_counts().index[0]).reset_index()
     most_common = dict(zip(new_df.country, new_df.variety))
+    # print(json.dumps(most_common, indent = 4))
     return most_common
 
 
