@@ -1,43 +1,43 @@
-country,Variety,Price,Points,Adjective
-Portugal,Portuguese Red,26.77,88.54473806,ripe
-US,Pinot Noir,36.58,88.57160523,black
-Italy,Red Blend,41.16,88.75199016,white
-France,Chardonnay,46.61,89.2487725,ripe
-Germany,Riesling,41.32,89.86217617,dry
-Argentina,Malbec,24.75,86.77620579,herbal
-Spain,Tempranillo,30.29,87.41509058,red
-Chile,Cabernet Sauvignon,20.67,86.4751854,herbal
-Australia,Shiraz,34.46,88.54869611,medium-bodied
-South Africa,Sauvignon Blanc,23.03,87.71649954,fresh
-New Zealand,Sauvignon Blanc,26.66,88.26774691,herbal
-Israel,Cabernet Sauvignon,31.28,88.42780749,black
-Hungary,Furmint,42.9,89.53781513,white
-Greece,White Blend,22.93,87.32853717,white
-Romania,Cabernet Sauvignon,15.63,86.40178571,black
-Mexico,Red Blend,26.55,85.1875,herbal
-Austria,Riesling,32.93,90.33913043,ripe
-Canada,Riesling,36.23,89.46445498,fresh
-Turkey,Red Blend,24.93,88.05263158,black
-Czech Republic,Red Blend,24.22,87.22222222,black
-Slovenia,Sauvignon Blanc,22.87,87.94285714,lemon
-Croatia,Plavac Mali,25.03,87.3,black
-Georgia,Saperavi,19.38,87.74025974,white
-Uruguay,Tannat,27.02,86.63855422,black
-England,Sparkling Blend,52.4,91.70909091,creamy
-Lebanon,Red Blend,32.85,87.44444444,black
-Serbia,Red Blend,24.5,87.5,red
-Brazil,Merlot,22.66,84.57142857,tannic
-Morocco,Red Blend,17.84,88.72,black
-Peru,Red Blend,18.21,83.42857143,baked
-India,Shiraz,13.33,90.22222222,nose
-Cyprus,White Blend,16.2,87,white
-Bulgaria,Red Blend,14.51,87.91603053,black
-Armenia,Kangoun,14,87,white
-Moldova,Red Blend,16.63,86.89130435,black
-Bosnia and Herzegovina,Vranec,12.5,86.5,black
-Switzerland,Pinot Noir,94.5,88.33333333,red
-Slovakia,Riesling,16,87,Delicious
-Macedonia,Vranec,15.64,86.72727273,fresh
-Luxembourg,Riesling,22.67,88.66666667,lemon
-Ukraine,Sparkling Blend,9.5,83.75,mouth-filling
-China,Cabernet Blend,18,89,deep
+Country,Variety,Year,Price,Points,Adjective
+Portugal,Portuguese Red,2014,26.77,88.54473806212332,ripe
+US,Pinot Noir,2013,36.58,88.5716052278106,black
+Italy,Red Blend,2012,41.16,88.75199016244903,white
+France,Chardonnay,2014,46.61,89.24877250409165,ripe
+Germany,Riesling,2014,41.32,89.8621761658031,dry
+Argentina,Malbec,2012,24.75,86.77620578778135,herbal
+Spain,Tempranillo,2011,30.29,87.41509058331674,red
+Chile,Cabernet Sauvignon,2012,20.67,86.4751853964632,herbal
+Australia,Shiraz,2013,34.46,88.54869611495477,medium-bodied
+South Africa,Sauvignon Blanc,2007,23.03,87.71649954421149,fresh
+New Zealand,Sauvignon Blanc,2013,26.66,88.26774691358025,herbal
+Israel,Cabernet Sauvignon,2012,31.28,88.42780748663101,black
+Hungary,Furmint,2015,42.9,89.53781512605042,white
+Greece,White Blend,2010,22.93,87.32853717026379,white
+Romania,Cabernet Sauvignon,2014,15.63,86.40178571428571,black
+Mexico,Red Blend,2011,26.55,85.1875,herbal
+Austria,Riesling,2013,32.93,90.3391304347826,ripe
+Canada,Riesling,2012,36.23,89.46445497630332,fresh
+Turkey,Red Blend,2014,24.93,88.05263157894737,black
+Czech Republic,Red Blend,2011,24.22,87.22222222222223,black
+Slovenia,Ribolla Gialla,2011,22.87,87.94285714285714,lemon
+Croatia,Plavac Mali,2009,25.03,87.3,black
+Georgia,Saperavi,2014,19.38,87.74025974025975,white
+Uruguay,Tannat,2015,27.02,86.63855421686748,black
+England,Sparkling Blend,2013,52.4,91.7090909090909,creamy
+Lebanon,Red Blend,2010,32.85,87.44444444444444,black
+Serbia,Riesling,2009,24.5,87.5,red
+Brazil,Merlot,2014,22.66,84.57142857142857,tannic
+Morocco,Red Blend,2012,17.84,88.72,black
+Peru,Red Blend,2010,18.21,83.42857142857143,baked
+India,Shiraz,2013,13.33,90.22222222222223,nose
+Cyprus,White Blend,2010,16.2,87.0,white
+Bulgaria,Red Blend,2015,14.51,87.91603053435115,black
+Armenia,Kangoun,2015,14.0,87.0,white
+Moldova,Red Blend,2013,16.63,86.8913043478261,black
+Bosnia and Herzegovina,Vranec,2007,12.5,86.5,black
+Switzerland,Pinot Noir,2012,94.5,88.33333333333333,red
+Slovakia,Riesling,2008,16.0,87.0,Delicious
+Macedonia,Pinot Noir,2007,15.64,86.72727272727273,fresh
+Luxembourg,Riesling,2015,22.67,88.66666666666667,lemon
+Ukraine,Sparkling Blend,2008,9.5,83.75,mouth-filling
+China,Cabernet Blend,2009,18.0,89.0,deep
