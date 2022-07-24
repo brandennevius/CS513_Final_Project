@@ -8,21 +8,6 @@ import numpy as np
 pd.set_option('max_columns', None)
 
 
-
-# Defining main function
-def main():
-    print("test")
-    df = getDataset()
-    df1 = removeCols(df)
-    df2 = removeMissingCountryRows(df1)
-    df3 = removeMissingPriceRows(df2)
-    df4 = createYearColumn(df3)
-    df5 = removeMissingYearFromTitleRows(df4)
-    df6 = cleanVarietyCol(df5)
-    countries = getListOfCountries(df6) 
-    averagePointsDict = getAveragePointsPerCountry(countries, df6)
-
-
 # Get dataset
 def getDataset():
     df = pd.read_csv('Winery-Kaggle/winemag-data-130k-v2.csv')
@@ -126,8 +111,6 @@ def getMostCommonYearPerCountry(listOfCountries_p, df_p):
     return dict
         
     
-<<<<<<< HEAD
-=======
         
 # Defining main function
 def main():
@@ -141,9 +124,9 @@ def main():
     countries = getListOfCountries(df5) 
     averagePointsDict = getAveragePointsPerCountry(countries, df5)
     mostCommonYearDict = getMostCommonYearPerCountry(countries, df5)
+    mostPopularVarietyByCountry(df5)
     
 # Count the Null columns
->>>>>>> master
 """
 getNullColumns prints the number of null values per column
 """
@@ -177,7 +160,6 @@ cleanVarietyCol() cleans the variety column by:
 def cleanVarietyCol(df_v):
     df1 = df_v[df_v['variety'].notna()]
     df2 = df1.loc[df1.variety.str.contains('^[a-zA-Z][a-zA-Z, ]*$')]
-    print(df2['variety'].value_counts())
     return df2
     """
     Tests: 
@@ -187,6 +169,12 @@ def cleanVarietyCol(df_v):
     df2 = df1.loc[df1.variety.str.contains('^[a-zA-Z][a-zA-Z, ]*$')]
     print(len(df2['variety']))
     """
+
+def mostPopularVarietyByCountry(df_vp):
+    print(df_vp.head())
+    
+    
+
     
     
 # Using the special variable 
