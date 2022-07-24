@@ -6,6 +6,7 @@ from datetime import datetime, tzinfo
 import re
 import numpy as np
 import json
+
 from textblob import TextBlob
 from itertools import chain
 from collections import Counter
@@ -157,13 +158,15 @@ def main():
     df3 = removeMissingPriceRows(df2)
     df4 = createYearColumn(df3)
     df5 = removeMissingYearFromTitleRows(df4)
-    
-    countries = getListOfCountries(df5) 
-    averagePointsDict = getAveragePointsPerCountry(countries, df5)
-    mostCommonYearDict = getMostCommonYearPerCountry(countries, df5)
-    mostPopularVarietyByCountry(df5)
-    averagePriceDict = getAveragePricePerCountry(countries, df5)
-    adjectiveDict = getAdjectivesFromDescription(countries, df)
+    df6 = cleanVarietyCol(df5)
+
+    mostCommonVarietyDict = mostPopularVarietyByCountry(df6)
+    print(mostCommonVarietyDict)
+    countries = getListOfCountries(df6) 
+    averagePointsDict = getAveragePointsPerCountry(countries, df6)
+    mostCommonYearDict = getMostCommonYearPerCountry(countries, df6)
+    averagePriceDict = getAveragePricePerCountry(countries, df6)
+    adjectiveDict = getAdjectivesFromDescription(countries, df6)
 
 # Count the Null columns
 """
