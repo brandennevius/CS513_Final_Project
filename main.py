@@ -151,6 +151,9 @@ def getAdjectivesFromDescription(listOfCountries_p, df_p):
 
 def createCleanedCsvFile(df_p):
     df_p.to_csv("cleanedDataset.csv")
+    
+def checkYearColumn(df_p):
+    
        
 # Defining main function
 def main():
@@ -183,6 +186,10 @@ def main():
     file and check the cleaned csv file for null values.
     """
     createCleanedCsvFile(df6)
+    
+    """
+    Integrity constraint checks.
+    """
     getNullColumns(df6)
 
 """
