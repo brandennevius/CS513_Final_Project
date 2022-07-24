@@ -5,6 +5,7 @@ from dateutil.parser import parse
 from datetime import datetime, tzinfo
 import re
 import numpy as np
+import json
 pd.set_option('max_columns', None)
 
 
@@ -128,15 +129,13 @@ def main():
     df3 = removeMissingPriceRows(df2)
     df4 = createYearColumn(df3)
     df5 = removeMissingYearFromTitleRows(df4)
+    
     countries = getListOfCountries(df5) 
     averagePointsDict = getAveragePointsPerCountry(countries, df5)
     mostCommonYearDict = getMostCommonYearPerCountry(countries, df5)
-<<<<<<< HEAD
     mostPopularVarietyByCountry(df5)
-=======
     averagePriceDict = getAveragePricePerCountry(countries, df5)
-    print(averagePriceDict)
->>>>>>> master
+    # print(averagePriceDict)
     
 # Count the Null columns
 """
@@ -183,11 +182,13 @@ def cleanVarietyCol(df_v):
     """
 
 def mostPopularVarietyByCountry(df_vp):
-    print(df_vp.head())
-    
-    
+    new_df = df_vp.groupby(['country'])['variety'].apply(lambda x: x.value_counts().index[0]).reset_index()
+    most_common = dict(zip(new_df.country, new_df.variety))
+    print(json.dumps(most_common, indent = 4))
+    return most_common
+    # print(most_common)
 
-    
+
     
 # Using the special variable 
 # __name__
