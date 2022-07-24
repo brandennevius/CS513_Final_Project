@@ -150,10 +150,17 @@ def getAdjectivesFromDescription(listOfCountries_p, df_p):
         MostCommonWordTuple = mostCommonWords[0]
         dict[i] = MostCommonWordTuple[0]
     return dict
+
+def createCleanedCsvFile(df_p):
+    df_p.to_csv("cleanedDataset.csv")
        
 # Defining main function
 def main():
-    print("test")
+    """
+    We create a dataframe from the original CSV
+    and make several function calls to clean this
+    dataframe.
+    """
     df = getDataset()
     df1 = removeCols(df)
     df2 = removeMissingCountryRows(df1)
@@ -161,7 +168,11 @@ def main():
     df4 = createYearColumn(df3)
     df5 = removeMissingYearFromTitleRows(df4)
     df6 = cleanVarietyCol(df5)
-
+    
+    """
+    We use the resulting dataframe to create dicts
+    that include country specific data.
+    """
     mostCommonVarietyDict = mostPopularVarietyByCountry(df6)
     countries = getListOfCountries(df6) 
     averagePointsDict = getAveragePointsPerCountry(countries, df6)
@@ -169,7 +180,12 @@ def main():
     averagePriceDict = getAveragePricePerCountry(countries, df6)
     adjectiveDict = getAdjectivesFromDescription(countries, df6)
     makeProfile(mostCommonVarietyDict,mostCommonYearDict,averagePriceDict,averagePointsDict,adjectiveDict, countries)
-
+    """
+    We convert the resulting dataframe back into a csv
+    file and check the cleaned csv file for null values.
+    """
+    createCleanedCsvFile(df6)
+    getNullColumns(df6)
 
 
 def BuildDataset(dictionary, name):
@@ -197,15 +213,15 @@ def makeProfile(d1,d2,d3,d4,d5,countries):
     print(dd)        
     BuildDataset(dd,'Profiles')
     return dd
+    
+    
 
-# Count the Null columns
 """
 getNullColumns prints the number of null values per column
 """
-def getNullColumns():
-    df = getDataset()
-    null_columns=df.columns[df.isnull().any()]
-    # print(df[null_columns].isnull().sum())
+def getNullColumns(df_p):
+    null_columns=df_p.columns[df_p.isnull().any()]
+    print(df_p[null_columns].isnull().sum())
 
 """
 removeCols is used to remove unecessary columns
@@ -215,6 +231,9 @@ def removeCols(df):
     new_df = new_df.drop('region_2', axis=1)
     new_df = new_df.drop('taster_name', axis=1)
     new_df = new_df.drop('taster_twitter_handle', axis=1)
+    new_df = new_df.drop('designation', axis=1)
+    new_df = new_df.drop('province', axis=1)
+    new_df = new_df.drop('winery', axis=1)
     return new_df
     """
     Tests:
@@ -246,7 +265,6 @@ def mostPopularVarietyByCountry(df_vp):
     most_common = dict(zip(new_df.country, new_df.variety))
     # print(json.dumps(most_common, indent = 4))
     return most_common
-    # print(most_common)
 
 
     
