@@ -6,6 +6,9 @@ from datetime import datetime, tzinfo
 import re
 import numpy as np
 import json
+from textblob import TextBlob
+from itertools import chain
+from collections import Counter
 pd.set_option('max_columns', None)
 
 
@@ -119,7 +122,32 @@ def getAveragePricePerCountry(listOfCountries_p, df_p):
         average = np.average(pointsForThisCountry)
         dict[i] = round(average,2)
     return dict
-        
+
+def getAdjectives(text):
+    blob = TextBlob(text)
+    return [ word for (word,tag) in blob.tags if tag == "JJ"]
+
+def getAdjectivesFromDescription(listOfCountries_p, df_p):
+    """
+    This function is going to get the most common adjective
+    across all descriptions per country. It will return a dict 
+    of [country, most common adjective] pairs.
+    I used the debugger to test this.
+    """
+    dict = {}
+    for i in listOfCountries_p:
+        adjectivesList = []
+        countrydf = df_p.query("country == @i")
+        descriptionsForThisCountry = countrydf['description'].values
+        for y in descriptionsForThisCountry[0:100]:
+            adjectives = getAdjectives(y)
+            adjectivesList.append(adjectives)
+        flattenedAdjectivesList = list(chain.from_iterable(adjectivesList))
+        mostCommonWords = Counter(flattenedAdjectivesList).most_common()
+        MostCommonWordTuple = mostCommonWords[0]
+        dict[i] = MostCommonWordTuple[0]
+    return dict
+       
 # Defining main function
 def main():
     print("test")
@@ -135,8 +163,8 @@ def main():
     mostCommonYearDict = getMostCommonYearPerCountry(countries, df5)
     mostPopularVarietyByCountry(df5)
     averagePriceDict = getAveragePricePerCountry(countries, df5)
-    # print(averagePriceDict)
-    
+    adjectiveDict = getAdjectivesFromDescription(countries, df)
+
 # Count the Null columns
 """
 getNullColumns prints the number of null values per column
@@ -152,7 +180,6 @@ removeCols is used to remove unecessary columns
 def removeCols(df):
     new_df = df.drop('region_1', axis=1)
     new_df = new_df.drop('region_2', axis=1)
-    new_df = new_df.drop('description', axis=1)
     new_df = new_df.drop('taster_name', axis=1)
     new_df = new_df.drop('taster_twitter_handle', axis=1)
     return new_df
