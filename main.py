@@ -110,7 +110,14 @@ def getMostCommonYearPerCountry(listOfCountries_p, df_p):
         dict[i] = np.argmax(yearCounts)
     return dict
         
-    
+def getAveragePricePerCountry(listOfCountries_p, df_p):
+    dict = {}
+    for i in listOfCountries_p:
+        countrydf = df_p.query("country == @i")
+        pointsForThisCountry = countrydf['price'].values
+        average = np.average(pointsForThisCountry)
+        dict[i] = round(average,2)
+    return dict
         
 # Defining main function
 def main():
@@ -124,7 +131,12 @@ def main():
     countries = getListOfCountries(df5) 
     averagePointsDict = getAveragePointsPerCountry(countries, df5)
     mostCommonYearDict = getMostCommonYearPerCountry(countries, df5)
+<<<<<<< HEAD
     mostPopularVarietyByCountry(df5)
+=======
+    averagePriceDict = getAveragePricePerCountry(countries, df5)
+    print(averagePriceDict)
+>>>>>>> master
     
 # Count the Null columns
 """
