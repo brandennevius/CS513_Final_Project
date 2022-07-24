@@ -2,13 +2,16 @@ from hashlib import new
 from turtle import update
 import pandas as pd
 from dateutil.parser import parse
-from datetime import datetime
+from datetime import datetime, tzinfo
 import re
 import numpy as np
+import json
+
 from textblob import TextBlob
 from itertools import chain
 from collections import Counter
 pd.set_option('max_columns', None)
+
 
 # Get dataset
 def getDataset():
@@ -29,6 +32,8 @@ def removeMissingCountryRows(df_p):
     df = df_p[df_p['country'].notna()]
     return df
 
+
+    
 def removeMissingPriceRows(df_p):
     """
     I can use this to test if removing the rows works.
@@ -153,26 +158,27 @@ def main():
     df3 = removeMissingPriceRows(df2)
     df4 = createYearColumn(df3)
     df5 = removeMissingYearFromTitleRows(df4)
-    countries = getListOfCountries(df5) 
-    averagePointsDict = getAveragePointsPerCountry(countries, df5)
-    mostCommonYearDict = getMostCommonYearPerCountry(countries, df5)
-    averagePriceDict = getAveragePricePerCountry(countries, df5)
-    adjectiveDict = getAdjectivesFromDescription(countries, df)
+    df6 = cleanVarietyCol(df5)
+
+    mostCommonVarietyDict = mostPopularVarietyByCountry(df6)
+    print(mostCommonVarietyDict)
+    countries = getListOfCountries(df6) 
+    averagePointsDict = getAveragePointsPerCountry(countries, df6)
+    mostCommonYearDict = getMostCommonYearPerCountry(countries, df6)
+    averagePriceDict = getAveragePricePerCountry(countries, df6)
+    adjectiveDict = getAdjectivesFromDescription(countries, df6)
 
 # Count the Null columns
 """
-Prints the count of the null values for each column 
+getNullColumns prints the number of null values per column
 """
 def getNullColumns():
     df = getDataset()
     null_columns=df.columns[df.isnull().any()]
-    print(df[null_columns].isnull().sum())
+    # print(df[null_columns].isnull().sum())
 
-# Remove the region 1 and region 2
 """
-Region 1 contains 16% null data 
-Region 2 contains 61% data 
-param col_name : String of the column name we want to delete
+removeCols is used to remove unecessary columns
 """
 def removeCols(df):
     new_df = df.drop('region_1', axis=1)
@@ -180,9 +186,40 @@ def removeCols(df):
     new_df = new_df.drop('taster_name', axis=1)
     new_df = new_df.drop('taster_twitter_handle', axis=1)
     return new_df
+    """
+    Tests:
+    print(new_df.shape()) # should be 9 columns
+    """
     
 
-  
+"""
+cleanVarietyCol() cleans the variety column by: 
+ - removing the rows with Null values
+ - removing rows where entry contains 
+   values with characters not in the alphabet
+"""
+def cleanVarietyCol(df_v):
+    df1 = df_v[df_v['variety'].notna()]
+    df2 = df1.loc[df1.variety.str.contains('^[a-zA-Z][a-zA-Z, ]*$')]
+    return df2
+    """
+    Tests: 
+    print(len(df_v['variety']))
+    df1 = df_v[df_v['variety'].notna()]
+    print(len(df1['variety']))
+    df2 = df1.loc[df1.variety.str.contains('^[a-zA-Z][a-zA-Z, ]*$')]
+    print(len(df2['variety']))
+    """
+
+def mostPopularVarietyByCountry(df_vp):
+    new_df = df_vp.groupby(['country'])['variety'].apply(lambda x: x.value_counts().index[0]).reset_index()
+    most_common = dict(zip(new_df.country, new_df.variety))
+    print(json.dumps(most_common, indent = 4))
+    return most_common
+    # print(most_common)
+
+
+    
 # Using the special variable 
 # __name__
 if __name__=="__main__":
