@@ -148,6 +148,9 @@ def getAdjectivesFromDescription(listOfCountries_p, df_p):
         MostCommonWordTuple = mostCommonWords[0]
         dict[i] = MostCommonWordTuple[0]
     return dict
+
+def createCleanedCsvFile(df_p):
+    df_p.to_csv("cleanedDataset.csv")
        
 # Defining main function
 def main():
@@ -159,14 +162,13 @@ def main():
     df4 = createYearColumn(df3)
     df5 = removeMissingYearFromTitleRows(df4)
     df6 = cleanVarietyCol(df5)
-
     mostCommonVarietyDict = mostPopularVarietyByCountry(df6)
-    print(mostCommonVarietyDict)
     countries = getListOfCountries(df6) 
     averagePointsDict = getAveragePointsPerCountry(countries, df6)
     mostCommonYearDict = getMostCommonYearPerCountry(countries, df6)
     averagePriceDict = getAveragePricePerCountry(countries, df6)
     adjectiveDict = getAdjectivesFromDescription(countries, df6)
+    createCleanedCsvFile(df6)
 
 # Count the Null columns
 """
@@ -214,9 +216,7 @@ def cleanVarietyCol(df_v):
 def mostPopularVarietyByCountry(df_vp):
     new_df = df_vp.groupby(['country'])['variety'].apply(lambda x: x.value_counts().index[0]).reset_index()
     most_common = dict(zip(new_df.country, new_df.variety))
-    print(json.dumps(most_common, indent = 4))
     return most_common
-    # print(most_common)
 
 
     
