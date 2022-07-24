@@ -109,8 +109,41 @@ def getAveragePointsPerCountry(listOfCountries_p, df_p):
         average = np.average(pointsForThisCountry)
         dict[i] = average
     return dict
+
+def getMostCommonYearPerCountry(listOfCountries_p, df_p):
+    """
+    This function determines what the most popular year is
+    for each country and returns a dict of [country, most common
+    year] pairs.
+    print(mostCommonYearDict) was used to test.
+    """
+    dict = {}
+    for i in listOfCountries_p:
+        countrydf = df_p.query("country == @i")
+        yearsForThisCountry = countrydf['year'].values
+        yearCounts = np.bincount(yearsForThisCountry.astype(int))
+        dict[i] = np.argmax(yearCounts)
+    return dict
         
     
+<<<<<<< HEAD
+=======
+        
+# Defining main function
+def main():
+    print("test")
+    df = getDataset()
+    df1 = removeCols(df)
+    df2 = removeMissingCountryRows(df1)
+    df3 = removeMissingPriceRows(df2)
+    df4 = createYearColumn(df3)
+    df5 = removeMissingYearFromTitleRows(df4)
+    countries = getListOfCountries(df5) 
+    averagePointsDict = getAveragePointsPerCountry(countries, df5)
+    mostCommonYearDict = getMostCommonYearPerCountry(countries, df5)
+    
+# Count the Null columns
+>>>>>>> master
 """
 getNullColumns prints the number of null values per column
 """
