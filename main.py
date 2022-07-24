@@ -153,6 +153,42 @@ def getAdjectivesFromDescription(listOfCountries_p, df_p):
 
 def createCleanedCsvFile(df_p):
     df_p.to_csv("cleanedDataset.csv")
+    
+def checkYearColumn(df_p):
+    yearColumnIsOnlyInts = np.array_equal(df_p.year, df_p.year.astype(int))
+    if not yearColumnIsOnlyInts:
+        print("IC Check: Year Column is not ints.")
+    else:
+        print("IC Check: Year column is only ints.")
+        
+def checkColumnsForStrings(df_p):
+    """
+    Country, description, title, and variety.
+    """
+    countryColumnIsStrings = np.array_equal(df_p.country, df_p.country.astype(str))
+    descriptionColumnIsStrings = np.array_equal(df_p.description, df_p.description.astype(str))
+    titleColumnIsStrings = np.array_equal(df_p.title, df_p.title.astype(str))
+    varietyColumnIsStrings = np.array_equal(df_p.variety, df_p.variety.astype(str))
+    if (countryColumnIsStrings and descriptionColumnIsStrings) and (titleColumnIsStrings and varietyColumnIsStrings):
+        print("IC Check: Country, description, title, and variety columns are strings.")
+    else:
+        print("IC Check: Country, description, title, and variety columns are not strings.")
+        
+def checkPriceColumn(df_p):
+    priceColumnIsOnlyInts = np.array_equal(df_p.price, df_p.price.astype(int))
+    if not priceColumnIsOnlyInts:
+        print("IC Check: Price Column is not ints.")
+    else:
+        print("IC Check: Price column is only ints.")
+        
+def checkPointColumn(df_p):
+    pointColumnIsOnlyInts = np.array_equal(df_p.points, df_p.points.astype(int))
+    if not pointColumnIsOnlyInts:
+        print("IC Check: Point Column is not ints.")
+    else:
+        print("IC Check: Point column is only ints.")
+    
+    
        
 # Defining main function
 def main():
@@ -185,7 +221,15 @@ def main():
     file and check the cleaned csv file for null values.
     """
     createCleanedCsvFile(df6)
+    
+    """
+    Integrity constraint checks.
+    """
     getNullColumns(df6)
+    checkYearColumn(df6)
+    checkColumnsForStrings(df6)
+    checkPointColumn(df6)
+    checkPriceColumn(df6)
 
 
 def BuildDataset(dictionary, name):
@@ -208,20 +252,19 @@ def makeProfile(d1,d2,d3,d4,d5,countries):
         d_temp['Price'] = d3[c]
         d_temp['Points'] = d4[c]
         d_temp['Adjective'] = d5[c]
-        dd[c] = d_temp
-        
-    print(dd)        
+        dd[c] = d_temp       
     BuildDataset(dd,'Profiles')
     return dd
     
-    
-
 """
 getNullColumns prints the number of null values per column
 """
 def getNullColumns(df_p):
     null_columns=df_p.columns[df_p.isnull().any()]
-    print(df_p[null_columns].isnull().sum())
+    if null_columns.empty:
+        print("IC Check: No null values exist.")
+    else: 
+        print("IC Check: Null values exist")
 
 """
 removeCols is used to remove unecessary columns
