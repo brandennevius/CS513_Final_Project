@@ -1,0 +1,61 @@
+Get dataset
+print(df2[df2['country'].isna()])
+print(df2[df2['price'].isna()])
+@begin main
+Defining main function
+@begin removeUnusedColumns
+@in df
+@out removed_columns_df
+@end removeUnusedColumns
+@begin removeMissingCountries
+@in removed_columns_df
+@out removed_missing_countries_df
+@end removeMissingCountries
+@begin removeMissingPrice
+@in removed_missing_countries_df
+@out removed__missing_price_df
+@end removeMissingPrice
+@begin createYearColumns
+@in removed__missing_price_df
+@out added_year_df
+@end createYearColumns
+@begin removeMissingYears
+@in added_year_df
+@out dropped_missing_years_df
+@end removeMissingYears
+@begin cleanVarietyColumn
+@in dropped_missing_years_df
+@out cleaned_dataset
+@end cleanVarietyColumn
+@begin CreateDictionaries
+@in cleaned_dataset
+begin createVarietyDictionary
+@out variety_dictionary
+@end createVarietyDictionary
+@begin createPointsDictionary
+@out points_dictionary
+@end createPointsDictionary
+@begin createYearDictionary
+@out year_dictionary
+@end createYearDictionary
+@begin createPriceDictionary
+@out price_dictionary
+@end createPriceDictionary
+@begin createAdgectivesDictionary
+@out adjectives_dictionary
+@end createAdgectivesDictionary
+end CreateDictionaries
+@begin CreateProfiles
+@in variety_dictionary
+@in points_dictionary
+@in year_dictionary
+@in price_dictionary
+@in adjectives_dictionary
+@out CountryWineProfiles
+@end CreateProfiles
+@end main
+You will need 'wb' mode in Python 2.x
+should be 9 columns
+print(json.dumps(most_common, indent = 4))
+Using the special variable
+__name__
