@@ -189,7 +189,7 @@ def checkPointColumn(df_p):
         print("IC Check: Point column is only ints.")
     
     
-       
+# @begin main      
 # Defining main function
 def main():
     """
@@ -198,24 +198,92 @@ def main():
     dataframe.
     """
     df = getDataset()
+    # @begin removeUnusedColumns
+    # @in df
     df1 = removeCols(df)
+    # @out removed_columns_df
+    # @end removeUnusedColumns
+
+    # @begin removeMissingCountries
+    # @in removed_columns_df
     df2 = removeMissingCountryRows(df1)
+    # @out removed_missing_countries_df
+    # @end removeMissingCountries
+
+    # @begin removeMissingPrice
+    # @in removed_missing_countries_df
     df3 = removeMissingPriceRows(df2)
+    # @out removed__missing_price_df
+    # @end removeMissingPrice
+
+    # @begin createYearColumns
+    # @in removed__missing_price_df
     df4 = createYearColumn(df3)
+    # @out added_year_df
+    # @end createYearColumns
+
+    # @begin removeMissingYears
+    # @in added_year_df
     df5 = removeMissingYearFromTitleRows(df4)
+    # @out dropped_missing_years_df
+    # @end removeMissingYears
+
+    # @begin cleanVarietyColumn
+    # @in dropped_missing_years_df
     df6 = cleanVarietyCol(df5)
-    
+    # @out cleaned_dataset
+    # @end cleanVarietyColumn
     """
     We use the resulting dataframe to create dicts
     that include country specific data.
     """
+    # @begin CreateDictionaries
+    # @in cleaned_dataset
+   
+    # @begin createVarietyDictionary
+    # @in cleaned_dataset
     mostCommonVarietyDict = mostPopularVarietyByCountry(df6)
     countries = getListOfCountries(df6) 
+    # @end createVarietyDictionary
+
+    # @begin createPointsDictionary
+    # @in cleaned_dataset
     averagePointsDict = getAveragePointsPerCountry(countries, df6)
+    # @end createPointsDictionary
+
+    # @begin createYearDictionary
+    # @in cleaned_dataset
     mostCommonYearDict = getMostCommonYearPerCountry(countries, df6)
+    # @end createYearDictionary
+
+    # @begin createPriceDictionary
+    # @in cleaned_dataset
     averagePriceDict = getAveragePricePerCountry(countries, df6)
+    # @end createPriceDictionary
+
+    # @begin createAdgectivesDictionary
+    # @in cleaned_dataset
     adjectiveDict = getAdjectivesFromDescription(countries, df6)
+    # @end createAdgectivesDictionary
+
+    # @out variety_dictionary
+    # @out points_dictionary
+    # @out year_dictionary
+    # @out price_dictionary
+    # @out adjectives_dictionary
+
+    # @end CreateDictionaries
+    
+    # @begin CreateProfiles
+    # @in variety_dictionary
+    # @in points_dictionary
+    # @in year_dictionary
+    # @in price_dictionary
+    # @in adjectives_dictionary
     makeProfile(mostCommonVarietyDict,mostCommonYearDict,averagePriceDict,averagePointsDict,adjectiveDict, countries)
+    # @out CountryWineProfiles
+    
+    # @end CreateProfiles
     """
     We convert the resulting dataframe back into a csv
     file and check the cleaned csv file for null values.
@@ -230,7 +298,7 @@ def main():
     checkColumnsForStrings(df6)
     checkPointColumn(df6)
     checkPriceColumn(df6)
-
+# @end main
 
 def BuildDataset(dictionary, name):
     filename = "%s.csv" % name

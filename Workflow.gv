@@ -1,0 +1,55 @@
+digraph Workflow {
+rankdir=TB
+fontname=Courier; fontsize=18; labelloc=t
+label=main
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; color=white
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+removeUnusedColumns
+removeMissingCountries
+removeMissingPrice
+createYearColumns
+removeMissingYears
+cleanVarietyColumn
+CreateProfiles
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=2 fontname=Courier]
+CreateDictionaries
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+removed_columns_df
+removed_missing_countries_df
+removed__missing_price_df
+added_year_df
+dropped_missing_years_df
+cleaned_dataset
+variety_dictionary
+points_dictionary
+year_dictionary
+price_dictionary
+adjectives_dictionary
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+removeUnusedColumns -> removed_columns_df
+df -> removeUnusedColumns
+removeMissingCountries -> removed_missing_countries_df
+removed_columns_df -> removeMissingCountries
+removeMissingPrice -> removed__missing_price_df
+removed_missing_countries_df -> removeMissingPrice
+createYearColumns -> added_year_df
+removed__missing_price_df -> createYearColumns
+removeMissingYears -> dropped_missing_years_df
+added_year_df -> removeMissingYears
+cleanVarietyColumn -> cleaned_dataset
+dropped_missing_years_df -> cleanVarietyColumn
+CreateDictionaries -> variety_dictionary
+CreateDictionaries -> points_dictionary
+CreateDictionaries -> year_dictionary
+CreateDictionaries -> price_dictionary
+CreateDictionaries -> adjectives_dictionary
+cleaned_dataset -> CreateDictionaries
+CreateProfiles -> CountryWineProfiles
+variety_dictionary -> CreateProfiles
+points_dictionary -> CreateProfiles
+year_dictionary -> CreateProfiles
+price_dictionary -> CreateProfiles
+adjectives_dictionary -> CreateProfiles
+}}
+}
