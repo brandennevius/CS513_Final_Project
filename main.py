@@ -153,8 +153,6 @@ def getAdjectivesFromDescription(listOfCountries_p, df_p):
 
 def createCleanedCsvFile(df_p):
     df_p.to_csv("cleanedDataset.csv")
-
-# @begin main
     
 def checkYearColumn(df_p):
     yearColumnIsOnlyInts = np.array_equal(df_p.year, df_p.year.astype(int))
@@ -191,7 +189,7 @@ def checkPointColumn(df_p):
         print("IC Check: Point column is only ints.")
     
     
-       
+# @begin main      
 # Defining main function
 def main():
     """
@@ -242,34 +240,40 @@ def main():
     # @begin CreateDictionaries
     # @in cleaned_dataset
    
-    # begin createVarietyDictionary
+    # @begin createVarietyDictionary
+    # @in cleaned_dataset
     mostCommonVarietyDict = mostPopularVarietyByCountry(df6)
     countries = getListOfCountries(df6) 
-    # @out variety_dictionary
     # @end createVarietyDictionary
 
     # @begin createPointsDictionary
+    # @in cleaned_dataset
     averagePointsDict = getAveragePointsPerCountry(countries, df6)
-    # @out points_dictionary
     # @end createPointsDictionary
 
     # @begin createYearDictionary
+    # @in cleaned_dataset
     mostCommonYearDict = getMostCommonYearPerCountry(countries, df6)
-    # @out year_dictionary
     # @end createYearDictionary
 
     # @begin createPriceDictionary
+    # @in cleaned_dataset
     averagePriceDict = getAveragePricePerCountry(countries, df6)
-    # @out price_dictionary
     # @end createPriceDictionary
 
     # @begin createAdgectivesDictionary
+    # @in cleaned_dataset
     adjectiveDict = getAdjectivesFromDescription(countries, df6)
-    # @out adjectives_dictionary
     # @end createAdgectivesDictionary
 
-    #end CreateDictionaries
+    # @out variety_dictionary
+    # @out points_dictionary
+    # @out year_dictionary
+    # @out price_dictionary
+    # @out adjectives_dictionary
 
+    # @end CreateDictionaries
+    
     # @begin CreateProfiles
     # @in variety_dictionary
     # @in points_dictionary
@@ -278,6 +282,7 @@ def main():
     # @in adjectives_dictionary
     makeProfile(mostCommonVarietyDict,mostCommonYearDict,averagePriceDict,averagePointsDict,adjectiveDict, countries)
     # @out CountryWineProfiles
+    
     # @end CreateProfiles
     """
     We convert the resulting dataframe back into a csv
@@ -289,12 +294,11 @@ def main():
     Integrity constraint checks.
     """
     getNullColumns(df6)
-# @end main
     checkYearColumn(df6)
     checkColumnsForStrings(df6)
     checkPointColumn(df6)
     checkPriceColumn(df6)
-
+# @end main
 
 def BuildDataset(dictionary, name):
     filename = "%s.csv" % name
