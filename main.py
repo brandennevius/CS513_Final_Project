@@ -283,7 +283,6 @@ def removeCols(df):
     print(new_df.shape()) # should be 9 columns
     """
     
-
 """
 cleanVarietyCol() cleans the variety column by: 
  - removing the rows with Null values
@@ -309,8 +308,6 @@ def mostPopularVarietyByCountry(df_vp):
     # print(json.dumps(most_common, indent = 4))
     return most_common
 
-
-    
 # Using the special variable 
 # __name__
 if __name__=="__main__":
