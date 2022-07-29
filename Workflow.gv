@@ -11,12 +11,9 @@ removeMissingPrice
 createYearColumns
 removeMissingYears
 cleanVarietyColumn
-CreateDictionaries
-createPointsDictionary
-createYearDictionary
-createPriceDictionary
-createAdgectivesDictionary
 CreateProfiles
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=2 fontname=Courier]
+CreateDictionaries
 node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
 removed_columns_df
 removed_missing_countries_df
@@ -43,11 +40,11 @@ added_year_df -> removeMissingYears
 cleanVarietyColumn -> cleaned_dataset
 dropped_missing_years_df -> cleanVarietyColumn
 CreateDictionaries -> variety_dictionary
+CreateDictionaries -> points_dictionary
+CreateDictionaries -> year_dictionary
+CreateDictionaries -> price_dictionary
+CreateDictionaries -> adjectives_dictionary
 cleaned_dataset -> CreateDictionaries
-createPointsDictionary -> points_dictionary
-createYearDictionary -> year_dictionary
-createPriceDictionary -> price_dictionary
-createAdgectivesDictionary -> adjectives_dictionary
 CreateProfiles -> CountryWineProfiles
 variety_dictionary -> CreateProfiles
 points_dictionary -> CreateProfiles
